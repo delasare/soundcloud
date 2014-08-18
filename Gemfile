@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+
 gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
@@ -22,8 +23,16 @@ end
 
 gem 'jquery-rails'
 
+# For Screen Scraping
 gem 'mechanize'
+
+# Soundcloud API gem
 gem 'soundcloud'
+
+# mongo
+gem 'mongo'
+gem 'bson_ext'
+gem 'mongo_mapper'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
