@@ -22,7 +22,7 @@ namespace :db do
     playlist = client.get('/me/playlists').first
     tracks = playlist.tracks
     tracks.each do |x|
-      new_song = { :title => x.title, :created_on => Time.now }
+      new_song = { track_id:x.id, :title => x.title, :created_on => Time.now }
       song_id = songs.insert(new_song)
       download_link(x)
     end
