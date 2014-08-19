@@ -27,8 +27,14 @@ namespace :db do
     tracks = playlist.tracks
     tracks.each do |x|
       new_song = { track_id:x.id, :title => x.title, :created_on => Time.now }
-      song_id = songs.insert(new_song)
-      download_link(x)
+      exists = songs.find_one('track_id' => x.id)
+      if exists.nil? || exists["track_id"].nil?
+        puts "Retrieving: #{x["track_id"]} #{x["title"]}"
+        song_id = songs.insert(new_song)
+        download_link(x)
+      else
+        puts "Already loaded: #{x["track_id"]} #{x["title"]}"
+      end
     end
   end
   
@@ -36,8 +42,7 @@ namespace :db do
     db = Connection.new.db('soundcloud')
     row = db.collection('songs').find()
     row.each do |x|
-      w = "#{x["track_id"]} #{x["title"]}"
-      puts w
+      puts "#{x["track_id"]} #{x["title"]}"
     end
   end
   
