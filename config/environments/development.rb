@@ -41,8 +41,5 @@ Scraper::Application.configure do
   # config.sc_client_id = '' #create an app on soundcloud and grab the client id
   # config.sc_client_secret = '' #creat an app on soundcloud and grab the client secret
 
-  config.sc_user = 'delasare' #your soundcloud username 
-  config.sc_pass = 'punk74rock' #your soundcloud password
-  config.sc_client_id = '185d8f00309f5e3d3dabe253015012fb' #create an app on soundcloud and grab the client id
-  config.sc_client_secret = 'e9f308212168a4ef77fa0b9f7f06364f' #creat an app on soundcloud and grab the client secret
+
 end
