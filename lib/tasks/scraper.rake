@@ -40,7 +40,6 @@ namespace :db do
       )
 
       download_link(x)
-
     end
   end
   
@@ -56,7 +55,7 @@ namespace :db do
     db = get_db()
     db.collection("songs").ensure_index(:track_id, :unique => true)
 
-    if Dir["songs"] == nil
+    unless Dir.exists?('songs')
       Dir.mkdir 'songs'
     end
 

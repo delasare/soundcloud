@@ -40,3 +40,6 @@ config/secrets.yml
 
 # the soundcloud downloads
 songs
+
+# mac stuff
+.DS_Store
