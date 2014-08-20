@@ -3,10 +3,15 @@ require 'mongo'
 include Mongo
 
 def download_link(track)
-  url = "https://api.soundcloud.com/tracks/#{track.id}/stream?client_id=#{Rails.configuration.sc_client_id}"
-  File.open("songs/#{track.title}.mp3", "wb") do |file|
-    file.write open(url).read
-    puts "Saved #{track.title}"
+  file_path = "songs/#{track.title}.mp3"
+  if File.exist?("songs/#{track.title}.mp3")
+    puts "File already exists"
+  else
+    url = "https://api.soundcloud.com/tracks/#{track.id}/stream?client_id=#{Rails.configuration.sc_client_id}"
+    File.open(file_path, "wb") do |file|
+      file.write open(url).read
+      puts "Saved #{track.title}"
+    end
   end
 end
 
@@ -26,15 +31,16 @@ namespace :db do
     playlist = client.get('/me/playlists').first
     tracks = playlist.tracks
     tracks.each do |x|
-      new_song = { track_id:x.id, :title => x.title, :created_on => Time.now }
-      exists = songs.find_one('track_id' => x.id)
-      if exists.nil? || exists["track_id"].nil?
-        puts "Retrieving: #{x["track_id"]} #{x["title"]}"
-        song_id = songs.insert(new_song)
-        download_link(x)
-      else
-        puts "Already loaded: #{x["track_id"]} #{x["title"]}"
-      end
+
+      puts "Retrieving: #{x["track_id"]} #{x["title"]}"
+      songs.update(
+        { "track_id" => x.id},
+        { "$push" => { "songs" => { "track_id" => x.id, "title" => x.title, "created_on" => Time.now }}},
+        :upsert => true, :safe => true
+      )
+
+      download_link(x)
+
     end
   end
   
@@ -49,7 +55,10 @@ namespace :db do
   task :setup_db => [:environment] do |t|
     db = get_db()
     db.collection("songs").ensure_index(:track_id, :unique => true)
-    
+
+    if Dir["songs"] == nil
+      Dir.mkdir 'songs'
+    end
 
   end
   
