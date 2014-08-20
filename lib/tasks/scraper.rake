@@ -58,7 +58,5 @@ namespace :db do
     unless Dir.exists?('songs')
       Dir.mkdir 'songs'
     end
-
-  end
-  
+  end  
 end

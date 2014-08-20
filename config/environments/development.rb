@@ -36,10 +36,10 @@ Scraper::Application.configure do
   config.assets.debug = true
 
   # Soundcloud Credentials
-  # config.sc_user = 'XXXXXXXXXXXXXXX' #your soundcloud username 
-  # config.sc_pass = 'XXXXXXXXXXXXXXX' #your soundcloud password
-  # config.sc_client_id = '' #create an app on soundcloud and grab the client id
-  # config.sc_client_secret = '' #creat an app on soundcloud and grab the client secret
+  config.sc_user = ENV['SOUNDCLOUD_USER'] #your soundcloud username 
+  config.sc_pass = ENV['SOUNDCLOUD_PASSWORD'] #your soundcloud password
+  config.sc_client_id = ENV['SOUNDCLOUD_CLIENT_ID'] #create an app on soundcloud and grab the client id
+  config.sc_client_secret = ENV['SOUNDCLOUD_CLIENT_SECRET'] #creat an app on soundcloud and grab the client secret
 
 
 end
