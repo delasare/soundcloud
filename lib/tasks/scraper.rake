@@ -22,7 +22,7 @@ end
 namespace :db do
   desc 'Call the soundcloud API and make magic happen'
   task :scrape_links => [:environment] do |t|
-    db = Connection.new.db('soundcloud')
+      db = Connection.new.db('soundcloud')
     songs = db.collection('songs')
     client = Soundcloud.new(:client_id => Rails.configuration.sc_client_id,
                         :client_secret => Rails.configuration.sc_client_secret,
