@@ -5,13 +5,13 @@ include Mongo
 class SongsController < ApplicationController
   
   def index
-    text = ""
+    @songs_array = []
     db = Connection.new.db('soundcloud')
     row = db.collection('songs').find()
     row.each do |x|
-      text = text + "<p>#{x["track_id"]}: #{x["songs"][0]["title"]}</p>".gsub(/["]/, '') # + x.inspect
+      s = "#{x["track_id"]}: #{x["songs"][0]["title"]}".gsub(/["]/, '') # + x.inspect
+      @songs_array << s
     end
-  
-  	render text: text
+  	#render text: text
   end
 end
